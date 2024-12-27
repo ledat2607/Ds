@@ -48,18 +48,30 @@ const LandingPageNavbar = (props: Props) => {
           {language === "vi" ? "Liên hệ" : "Contact"}
         </Link>
       </div>
-      <Link href={"/auth/sign-inin"}>
-        <Button className="text-base flex gap-x-2 bg-white text-black hover:text-white hover:bg-gray-800">
-          <User fill="#000" />
-          {language === "vi" ? "Đăng nhập" : "Login"}
-        </Button>
-      </Link>
       <div className="flex items-center gap-x-4">
+        <Link href={"/auth/sign-in"}>
+          <Button className="text-base flex gap-x-2 bg-white text-black hover:text-white hover:bg-gray-800">
+            <User fill="#000" />
+            {language === "vi" ? (
+              <p className="hidden md:block">Đănng nhập</p>
+            ) : (
+              <p className="hidden md:block">Login</p>
+            )}
+          </Button>
+        </Link>
         <button
           onClick={toggleLanguage}
-          className="px-4 py-2 border rounded-md hover:bg-gray-200 hover:text-black hover:border-blue-500 dark:hover:bg-gray-700 transition"
+          className="px-2 py-2 border rounded-md hover:bg-gray-200 hover:text-black hover:border-blue-500 dark:hover:bg-gray-700 transition"
         >
-          {language === "vi" ? "🇻🇳 Tiếng Việt" : "🇺🇸 English"}
+          {language === "vi" ? (
+            <div className="flex items-center justify-center gap-3">
+              VN <Image alt="" src={"/vn.svg"} width={24} height={24} />
+            </div>
+          ) : (
+            <div className="flex items-center justify-center gap-3">
+              EN <Image alt="" src={"/us.svg"} width={24} height={24} />
+            </div>
+          )}
         </button>
       </div>
     </div>
