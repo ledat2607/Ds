@@ -18,15 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={`${manrope.className} bg-[#171717] text-gray-100`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ReactQueryClient>{children}</ReactQueryClient>
           </ThemeProvider>
         </body>
       </html>
