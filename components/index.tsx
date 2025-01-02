@@ -1,5 +1,4 @@
-import { FileDuoToneBlack } from "./icons/file-duo-tone-black";
-import { Home } from "./icons/home";
+import { Bell, CreditCard, FileDuoToneBlack, Home, Settings } from "./icons";
 
 export const MENU_ITEMS = (
   workspaceId: string
@@ -16,21 +15,27 @@ export const MENU_ITEMS = (
     icon: <Home />,
   },
   {
-    titleVN: "Thư viện của tôitôi",
+    titleVN: "Thư viện của tôi",
     titleEN: "My Libary",
     href: `/dashboard/${workspaceId}`,
     icon: <FileDuoToneBlack />,
   },
   {
-    titleVN: "Trang chủ",
-    titleEN: "Home",
-    href: `/dashboard/${workspaceId}/home`,
-    icon: <Home />,
+    titleVN: "Thông báo",
+    titleEN: "Notificationss",
+    href: `/dashboard/${workspaceId}/notifications`,
+    icon: <Bell />,
   },
   {
-    titleVN: "Trang chủ",
-    titleEN: "Home",
-    href: `/dashboard/${workspaceId}/home`,
-    icon: <Home />,
+    titleVN: "Hóa đơn thanh toán",
+    titleEN: "Bill",
+    href: `/dashboard/${workspaceId}/billing`,
+    icon: <CreditCard />,
+  },
+  {
+    titleVN: "Cài đặt",
+    titleEN: "Settings",
+    href: `/dashboard/${workspaceId}/settings`,
+    icon: <Settings />,
   },
 ];
