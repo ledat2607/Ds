@@ -15,6 +15,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import Sidebar from "@/components/sidebar";
+import GlobalHeader from "@/components/global-header";
 
 type Props = { params: { workspaceId: string }; children: React.ReactNode };
 
@@ -53,9 +54,12 @@ const Layout = async ({ params: { workspaceId }, children }: Props) => {
 
   return (
     <HydrationBoundary state={dehydrate(query)}>
-      <div className="flex min-h-screen w-screen">
+      <div className="flex min-h-screen max-w-screen">
         <Sidebar actionWorkspaceId={workspaceId} />
-       
+        <div className="w-[90%] pt-28 p-6">
+          <GlobalHeader workspace={hasAccess.data.workspace} />
+          <div className="mt-4">{children}</div>
+        </div>
       </div>
     </HydrationBoundary>
   );

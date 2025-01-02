@@ -16,7 +16,7 @@ import { userQueryData } from "@/hooks/userQueryData";
 import { getNotifications, getWorkSpaces } from "@/actions/workspace";
 import { NotificationProps, WorkspaceProps } from "@/app/type/index.type";
 import Modal from "../modal";
-import { PlusCircle } from "lucide-react";
+import { Menu, PlusCircle } from "lucide-react";
 import WorkspaceSearch from "../search-workspaces";
 import { MENU_ITEMS } from "..";
 import SidebarItem from "./sidebar-items";
@@ -24,6 +24,9 @@ import WorkspacePlaceholder from "./workspace-placeholder";
 import GlobalCard from "../global-card";
 import PaymentButton from "../payment-button";
 import ButtonLanguage from "../languages";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { Button } from "../ui/button";
+import InfoBar from "../info-bar";
 
 type Props = { actionWorkspaceId: string };
 
@@ -64,8 +67,8 @@ const Sidebar = ({ actionWorkspaceId }: Props) => {
     router.push(`/dashboard/${value}`);
   };
 
-  return (
-    <div className="bg-slate-900 flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden">
+  const SidebarSection = (
+    <div className="bg-slate-900 flex-none relative p-4 min-h-screen w-[250px] flex flex-col gap-4 items-center overflow-hidden">
       {/* Header với logo và nút thay đổi ngôn ngữ */}
       <div className="bg-slate-800 p-4 gap-4 justify-between items-center mb-4 absolute top-0 left-0 right-0 flex">
         <div className="flex items-center gap-2">
@@ -182,8 +185,8 @@ const Sidebar = ({ actionWorkspaceId }: Props) => {
           <p className="text-[#9d9d9d] font-medium text-sm">
             {workspace.subscription?.plan === "FREE"
               ? language === "vi"
-                ? "Nâng cấp tài khoản để thêm không gian làm việc"
-                : "Upgrade"
+                ? "Nâng cấp để thêm không gian"
+                : "Upgrade to add workspace"
               : language === "vi"
               ? "Không tìm thấy không gian làm việc"
               : "No Workspaces"}
@@ -233,11 +236,34 @@ const Sidebar = ({ actionWorkspaceId }: Props) => {
       {/* Upgrade section */}
       {workspace.subscription?.plan === "FREE" && (
         <GlobalCard
-          title="Upgrade to Pro"
-          description="Unlock AI features like transcription, AI summary, and more."
-          footer={<PaymentButton />}
+          title={language === "vi" ? "Nâng cấp tài khoản" : "Upgrade to PRO"}
+          description={
+            language === "vi"
+              ? "Mở các chức năng đặc biệt mới"
+              : "Unlock AI features like transcription, AI summary, and more."
+          }
+          footer={<PaymentButton language={language} />}
         />
       )}
+    </div>
+  );
+  return (
+    <div className="full">
+      <InfoBar language={language} />
+      <div className="md:hidden fixed my-3">
+        <Sheet>
+          <SheetTrigger asChild className="ml-2">
+            <Button variant={"ghost"} className="mt-[2px]">
+              <Menu />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side={"left"} className="p-0 w-fit h-full">
+            <SheetTitle></SheetTitle>
+            {SidebarSection}
+          </SheetContent>
+        </Sheet>
+      </div>
+      <div className="md:block hidden h-full">{SidebarSection}</div>
     </div>
   );
 };

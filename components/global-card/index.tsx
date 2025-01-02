@@ -14,7 +14,12 @@ type Props = {
   footer?: React.ReactNode;
 };
 
-const GlobalCard = ({ title, children, description, footer }: Props) => {
+const GlobalCard = ({
+  title,
+  children,
+  description,
+  footer,
+}: Props) => {
   return (
     <Card className="bg-transparent mt-4">
       <CardHeader className="p-4">
