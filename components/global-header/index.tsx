@@ -1,5 +1,6 @@
 "use client";
 
+import { useLanguage } from "@/app/context/LanguageContext";
 import { WorkSpace } from "@prisma/client";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -9,13 +10,7 @@ type Props = {
 };
 
 const GlobalHeader = ({ workspace }: Props) => {
-  const [language, setLanguage] = useState<"en" | "vi">("vi");
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as "en" | "vi";
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-    }
-  }, []);
+  const { language } = useLanguage();
   const pathName = usePathname().split(`/dashboard/${workspace.id}`)[1];
   return (
     <article className="flex flex-col gap-2">

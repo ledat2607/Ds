@@ -27,21 +27,14 @@ import ButtonLanguage from "../languages";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import InfoBar from "../info-bar";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 type Props = { actionWorkspaceId: string };
 
 const Sidebar = ({ actionWorkspaceId }: Props) => {
-  const [language, setLanguage] = useState<"en" | "vi">("vi");
+  const { language, changeLanguage } = useLanguage();
   const menuItems = MENU_ITEMS(actionWorkspaceId);
   const pathName = usePathname();
-
-  // Lấy ngôn ngữ từ localStorage khi load component
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as "en" | "vi";
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-    }
-  }, []); // Chỉ chạy 1 lần khi mount component
 
   const router = useRouter();
 
@@ -70,7 +63,7 @@ const Sidebar = ({ actionWorkspaceId }: Props) => {
   const SidebarSection = (
     <div className="bg-slate-900 flex-none relative p-4 min-h-screen w-[250px] flex flex-col gap-4 items-center overflow-hidden">
       {/* Header với logo và nút thay đổi ngôn ngữ */}
-      <div className="bg-slate-800 p-4 gap-4 justify-between items-center mb-4 absolute top-0 left-0 right-0 flex">
+      <div className="bg-slate-800 p-2 gap-4 justify-between items-center mb-4 absolute top-0 left-0 right-0 flex">
         <div className="flex items-center gap-2">
           <Image
             src={"/opal-logo.svg"}
@@ -81,7 +74,21 @@ const Sidebar = ({ actionWorkspaceId }: Props) => {
           />
           <p className="text-2xl lg:block hidden">Opal</p>
         </div>
-        <ButtonLanguage setLanguage={setLanguage} />{" "}
+        <div>
+          <button
+            onClick={() => changeLanguage(language === "vi" ? "en" : "vi")}
+          >
+            {language === "vi" ? (
+              <div className="px-3 py-2">
+                <img src="/vn.svg" className="w-8 h-8" />
+              </div>
+            ) : (
+              <div className="px-2 py-2">
+                <img src="/us.svg" className="w-8 h-8" />
+              </div>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Dropdown chọn workspace */}
@@ -99,7 +106,11 @@ const Sidebar = ({ actionWorkspaceId }: Props) => {
             </SelectLabel>
             <Separator />
             {workspace.workspace.map((workspace) => (
-              <SelectItem value={workspace.id} key={workspace.id}>
+              <SelectItem
+                value={workspace.id}
+                key={workspace.id}
+                className="text-white"
+              >
                 {workspace.name}
               </SelectItem>
             ))}

@@ -53,7 +53,7 @@ const LandingPageNavbar = (props: Props) => {
           <Button className="text-base flex gap-x-2 bg-white text-black hover:text-white hover:bg-gray-800">
             <User fill="#000" />
             {language === "vi" ? (
-              <p className="hidden md:block">Đănng nhập</p>
+              <p className="hidden md:block">Đăng nhập</p>
             ) : (
               <p className="hidden md:block">Login</p>
             )}
