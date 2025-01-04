@@ -60,7 +60,7 @@ const Layout = async ({ params: { workspaceId }, children }: Props) => {
       <HydrationBoundary state={dehydrate(query)}>
         <div className="flex min-h-screen max-w-screen">
           <Sidebar actionWorkspaceId={workspaceId} />
-          <div className="w-[90%] pt-28 p-6">
+          <div className="w-[100%] pt-28 p-6">
             <GlobalHeader workspace={hasAccess.data.workspace} />
             <div className="mt-4">{children}</div>
           </div>
