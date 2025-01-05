@@ -3,10 +3,40 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import Folder from "./folder";
+import { userQueryData } from "@/hooks/userQueryData";
+import { getWorkspaceFolders } from "@/actions/workspace";
+import { useMutationDataState } from "@/hooks/useMutationData";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 type Props = { workspaceId: string };
 
+
+export type FoldersProps = {
+  status: number;
+  data: ({
+    _count: {
+      videos: number;
+    };
+  } & {
+    id: string;
+    name: string;
+    createdAt: Date;
+    workSpaceId: string | null;
+  })[];
+};
+
 const Folders = ({ workspaceId }: Props) => {
+  const { language } = useLanguage();
+  //get folders
+  const { data, isFetched } = userQueryData(["workspace-folders"], () =>
+    getWorkspaceFolders(workspaceId)
+  );
+  const { latestVariables } = useMutationDataState(["create-folder"]);
+
+  const { status, data: folders } = data as FoldersProps;
+  // if(isFetched && folders){
+
+  // }
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between border-b border-[#9d9d9d]">
@@ -21,16 +51,31 @@ const Folders = ({ workspaceId }: Props) => {
       </div>
       <section
         className={cn(
+          status !== 200 && "justify-center w-full",
           "w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 "
         )}
       >
-        <Folder name="Folder title" id="" />
-        <Folder name="Folder title" id="" />
-        <Folder name="Folder title" id="" />
-        <Folder name="Folder title" id="" />
-        <Folder name="Folder title" id="" />
-        <Folder name="Folder title" id="" />
-        <Folder name="Folder title" id="" />
+        {status !== 200 ? (
+          <p className="text-neutral-300">
+            {language == "vi"
+              ? "Không tìm thấy thư mục nào"
+              : "No folder found"}
+          </p>
+        ) : (
+          <>
+            {latestVariables && latestVariables.status === "pending" && (
+              <Folder name="Folder title" id="" />
+            )}
+            {folders.map((folder) => (
+              <Folder
+                name={folder.name}
+                count={folder._count.videos}
+                id={folder.id}
+                key={folder.id}
+              />
+            ))}
+          </>
+        )}
       </section>
     </div>
   );
