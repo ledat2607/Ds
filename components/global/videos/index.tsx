@@ -13,6 +13,24 @@ type Props = {
   workspaceId: string;
 };
 
+const video = {
+  User: {
+    firstname: "John",
+    lastname: "Doe",
+    image: "https://example.com/avatar.jpg",
+  },
+  id: "doc_12345",
+  Folder: {
+    id: "folder_67890",
+    name: "Project Documents",
+  },
+  createdAt: "2024-06-05T10:30:00.000Z",
+  title: "Project Proposal",
+  source: "uploaded_file.pdf",
+  processing: false,
+  workspaceId: "workspace_abcde",
+};
+
 const Videos = ({ folderId, videoKey, workspaceId }: Props) => {
   const { data: videoData } = userQueryData([videoKey], () =>
     getAllUserVideos(folderId)
@@ -42,7 +60,7 @@ const Videos = ({ folderId, videoKey, workspaceId }: Props) => {
         ) : (
           <p className="text-gray-100">No video in workspace</p>
         )} */}
-        <VideoCard />
+        <VideoCard {...video} workspaceId={workspaceId} />
       </section>
     </div>
   );
