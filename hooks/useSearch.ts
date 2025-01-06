@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { searchUsers } from "@/actions/user";
-import { userQueryData } from "./userQueryData";
+import { useQueryData } from "./useQueryData";
 
 export const useSearch = (key: string, type: "USERS") => {
   const [query, setQuery] = useState("");
@@ -31,7 +31,7 @@ export const useSearch = (key: string, type: "USERS") => {
     return () => clearTimeout(delayInputTimeoutId);
   }, [query]);
 
-  const { refetch, isFetching } = userQueryData(
+  const { refetch, isFetching } = useQueryData(
     [key, debounce],
     async ({ queryKey }) => {
       if (type === "USERS") {

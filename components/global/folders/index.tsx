@@ -3,13 +3,12 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import Folder from "./folder";
-import { userQueryData } from "@/hooks/userQueryData";
+import { useQueryData } from "@/hooks/useQueryData";
 import { getWorkspaceFolders } from "@/actions/workspace";
 import { useMutationDataState } from "@/hooks/useMutationData";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 type Props = { workspaceId: string };
-
 
 export type FoldersProps = {
   status: number;
@@ -28,7 +27,7 @@ export type FoldersProps = {
 const Folders = ({ workspaceId }: Props) => {
   const { language } = useLanguage();
   //get folders
-  const { data, isFetched } = userQueryData(["workspace-folders"], () =>
+  const { data, isFetched } = useQueryData(["workspace-folders"], () =>
     getWorkspaceFolders(workspaceId)
   );
   const { latestVariables } = useMutationDataState(["create-folder"]);

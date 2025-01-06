@@ -5,13 +5,13 @@ import WorkspaceForm from "@/components/forms/workspace-form";
 import FolderPlusDuotine from "@/components/icons/folder-plus-duotone";
 import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
-import { userQueryData } from "@/hooks/userQueryData";
+import { useQueryData } from "@/hooks/useQueryData";
 import React from "react";
 
 type Props = {};
 
 const CreateWorkspace = (props: Props) => {
-  const { data } = userQueryData(["user-workspaces"], getWorkSpaces);
+  const { data } = useQueryData(["user-workspaces"], getWorkSpaces);
   const { language } = useLanguage();
   const { data: plan } = data as {
     status: number;

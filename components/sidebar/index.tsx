@@ -12,7 +12,7 @@ import {
 } from "../ui/select";
 import { usePathname, useRouter } from "next/navigation";
 import { Separator } from "../ui/separator";
-import { userQueryData } from "@/hooks/userQueryData";
+import { useQueryData } from "@/hooks/useQueryData";
 import { getNotifications, getWorkSpaces } from "@/actions/workspace";
 import { NotificationProps, WorkspaceProps } from "@/app/type/index.type";
 import Modal from "../modal";
@@ -39,11 +39,11 @@ const Sidebar = ({ actionWorkspaceId }: Props) => {
   const router = useRouter();
 
   // Fetch notifications và workspaces từ API
-  const { data: notifications } = userQueryData(
+  const { data: notifications } = useQueryData(
     ["user-notifications"],
     getNotifications
   );
-  const { data, isFetched } = userQueryData(["user-workspaces"], getWorkSpaces);
+  const { data, isFetched } = useQueryData(["user-workspaces"], getWorkSpaces);
 
   const { data: workspace } = data as WorkspaceProps;
   const { data: count } = notifications as NotificationProps;

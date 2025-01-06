@@ -287,7 +287,7 @@ export const getFolderInfo = async (folderId: string) => {
 
 export const moveVideoLocation = async (
   videoId: string,
-  workspaceId: string,
+  workSpaceId: string,
   folderId: string
 ) => {
   try {
@@ -297,12 +297,12 @@ export const moveVideoLocation = async (
       },
       data: {
         folderId: folderId || null,
-        workSpaceId: workspaceId,
+        workSpaceId,
       },
     });
-    if (location) return { status: 200, data: "Changed !!" };
-    return { status: 200, data: "Workspace/Folder not found" };
+    if (location) return { status: 200, data: "folder changed successfully" };
+    return { status: 404, data: "workspace/folder not found" };
   } catch (error) {
-    return { status: 500, data: "Error" };
+    return { status: 500, data: "Oops! something went wrong" };
   }
-};
+}

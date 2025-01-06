@@ -1,6 +1,7 @@
+"use client";
 import React from "react";
-import VideoCardMenu from "./video-card-menu";
 import Loader from "../loader";
+import CardMenu from "./video-card-menu";
 import ChangeVideoLocation from "@/components/forms/change-video-location";
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
     id: string;
     name: string;
   } | null;
-  createdAt: string;
+  createdAt: Date;
   title: string | null;
   source: string;
   processing: boolean;
@@ -24,21 +25,21 @@ type Props = {
 const VideoCard = (props: Props) => {
   return (
     <Loader state={false}>
-      {/* <div className="overflow-hidden cursor-pointer bg-[#171717] relative border-[1px] border-[#252525] flex flex-col rounded-xl">
+      {/* <div className="overflow-hidden cursor-pointer relative border-[1px] border-[#252525] flex flex-col rounded-xl">
         <div className="absolute top-3 right-3 z-50 flex flex-col gap-y-3">
-          <VideoCardMenu
-            currentFolderName={props.Folder?.name}
-            videoId={props.id}
-            currentWorkspace={props.workspaceId}
+          <CardMenu
             currentFolder={props.Folder?.id}
+            currentFolderName={props.Folder?.name}
+            currentWorkspace={props.workspaceId}
+            videoId={props.id}
           />
         </div>
       </div> */}
       <ChangeVideoLocation
-        currentFolder={"currentFolder"}
-        currentWorkspace={"currentWorkspace"}
-        videoId={"videoId"}
-        currentFolderName={"currentFolderName"}
+        videoId=""
+        currentFolder=""
+        currentFolderName=""
+        currentWorkspace=""
       />
     </Loader>
   );
