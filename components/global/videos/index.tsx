@@ -9,23 +9,6 @@ import VideoCard from "./video-card";
 
 type Props = { videoKey: string; workspaceId: string; folderId: string };
 
-const video = {
-  id: "video1",
-  title: "Introduction to Redux",
-  source: "https://example.com/videos/intro-redux",
-  processing: false,
-  createdAt: new Date("2024-01-01"),
-  workspaceId: "workspace1",
-  User: {
-    firstname: "John",
-    lastname: "Doe",
-    image: "https://example.com/images/john.jpg",
-  },
-  Folder: {
-    id: "folder1",
-    name: "Getting Started",
-  },
-};
 const Videos = ({ videoKey, folderId, workspaceId }: Props) => {
   const { data: videoData } = useQueryData([videoKey], () =>
     getAllUserVideos(folderId)
@@ -46,14 +29,14 @@ const Videos = ({ videoKey, folderId, workspaceId }: Props) => {
             : "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
         )}
       >
-        {/* {videoStatus === 200 ? (
+        {videoStatus === 200 ? (
           videos.map((video) => (
-            <VideoCard {...video} workspaceId={workspaceId} />
+            <VideoCard key={video.id} {...video} workspaceId={workspaceId} />
           ))
         ) : (
           <p className="text-[#a4a4a4]">No videos in workspace</p>
-        )} */}
-        <VideoCard {...video} workspaceId={workspaceId} />
+        )}
+        {/* <VideoCard {...video} workspaceId={workspaceId} /> */}
       </section>
     </div>
   );
